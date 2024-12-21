@@ -128,14 +128,21 @@ void deleteByKey(hashmap *map, char *word){
 //reset all hash node
 void freeAll(hashmap *map){
     for(size_t i = 0; i < TABLE_SIZE; i++){
+        if(!map){
+            return;
+        }
         Entry *entry = map->table[i];
         while(entry){
             Entry *temp = entry;
             entry = entry->next;
-            free(temp->key);
+            if(temp->key){
+                free(temp->key);
+            }
             free(temp);
         }
     }
+    free(map->table);
+    free(map);
 }
 
 int main(){
