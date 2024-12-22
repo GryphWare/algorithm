@@ -37,7 +37,8 @@ void insert(hashmap *map, int key_data, int value_data){
     while(map->table[index].key != HASH_KEY && map->table[index].key != key_data){
         index = (index + 1) % TABLE_SIZE;
         if(index == originIndex){
-            printf("Maxed out!\n");
+            snprintf(buffer, sizeof(buffer), "Maxed out of size!");
+            fprintf(stderr, "%s\n", buffer);
             return;
         }
     }
@@ -60,6 +61,38 @@ void printOpenAddressing(hashmap *map){
     }
 }
 
+//ham sreach
+void sreach(hashmap *map, int key_data){
+    unsigned int index = hash(key_data);
+    int origin = index;
+    while(map->table[index].key != HASH_KEY){
+        if(map->table[index].key == key_data){
+            snprintf(buffer, sizeof(buffer), "key = %d, value = %d", map->table[index].key, map->table[index].value);
+            fprintf(stdout, "%s\n", buffer);
+            return;
+        }
+        index = (index + 1) % TABLE_SIZE;
+        if(origin == index){
+            break;
+        }
+    }
+    snprintf(buffer, sizeof(buffer), "Dont have key %d", key_data);
+    fprintf(stderr, "%s\n", buffer);
+}
+
+//ham xoa
+void delete(hashmap *map, int key_value){
+    unsigned int index = hash(key_value);
+    int origin = index;
+    while(map->table[index].key != HASH_KEY){
+        if(map->table[index].key == key_value){
+            map->table[index].key = HASH_KEY;
+            map->table[index].value = HASH_VALUE;
+        }
+        index = (index + 1) % TABLE_SIZE;
+    }
+}
+
 int main(){
     hashmap map;
 
@@ -70,6 +103,17 @@ int main(){
     insert(&map, 3, 4);
 
     //in
+    printOpenAddressing(&map);
+
+    //in node chi dinh
+    sreach(&map, 1); //ton tai
+    sreach(&map, 9); //ko ton tai
+
+    //xoa node chi dinh
+    delete(&map, 1);
+    delete(&map, 3);
+
+    //in sau khi xoa node
     printOpenAddressing(&map);
 
     return 0;
