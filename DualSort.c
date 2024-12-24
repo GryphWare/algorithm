@@ -1,7 +1,16 @@
 #include <stdio.h>
 #include <limits.h>
 #include <stdlib.h>
+#include <string.h>
 
+#define spaceLimit (1024 * 1024 * 10) / sizeof(int)
+
+//ham clear
+void clear(){
+    int c;
+    while((c = getchar()) != '\n' && c != EOF);
+}
+//ham sap xep
 void dualSort(int *arr, int size){
     int *arrSorted = (int*) malloc (size * sizeof(int));
 
@@ -51,14 +60,54 @@ void dualSort(int *arr, int size){
 
 int main(){
 
-    //tao mang so
-    int arr[] = {1, 0, 7, 2, 4};
+    //vung tao bien
+    int sizeMain;
+    char sizeChar[21]; //neu co long long int
 
-    //tinh size
-    int size = sizeof(arr) / sizeof(arr[0]);
+    fgets(sizeChar, sizeof(sizeChar), stdin); //nhap
+    sizeChar[strcspn(sizeChar, "\n")] = '\0'; //bo \n neu co
+                                              //
+    //bao loi empty
+    if(sizeChar[0] == '\0'){
+        perror("Size must'nt be empty\n");
+        clear();
+        exit(1);
+    }
+
+    //doi char sang int
+    char *end;
+    sizeMain = strtol(sizeChar, &end, 10);
+    //bao loi
+    if((*end != '\n' && *end != '\0') || sizeMain > spaceLimit){
+        perror("Cant convert char to int!\n");
+        clear();
+        exit(1);
+    }
+
+    //tao mang
+    int *arr = (int*) malloc (sizeMain * sizeof(int));
+    if(arr == NULL){
+        perror("loi cap phat bo nho\n");
+        clear();
+        exit(1);
+    }
+
+    //nhap so vao mang
+    for(size_t i = 0; i < sizeMain; i++){
+        if(scanf("%d", &(arr[i]))  > spaceLimit){
+            perror("loi hoa qua bi nho!\n");
+            clear();
+            exit(1);
+        }
+    }
 
     //ham sap xep
-    dualSort(arr, size);
+    dualSort(arr, sizeMain);
+
+    //free
+    memset(arr, 0, sizeMain * sizeof(int));
+    free(arr);
+    arr = NULL;
 
     return 0;
 }
