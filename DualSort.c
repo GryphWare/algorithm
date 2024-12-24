@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <limits.h>
+#include <stdlib.h>
 
 void dualSort(int *arr, int size){
-    int arrSorted[size];
+    int *arrSorted = (int*) malloc (size * sizeof(int));
 
     int right = size - 1, left = 0;
 
@@ -30,6 +31,7 @@ void dualSort(int *arr, int size){
         printf("%d ", arrSorted[i]);
     }
     printf("\n");
+    free(arrSorted);
 }
 
 
