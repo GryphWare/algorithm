@@ -122,6 +122,30 @@ void delete(concurrent_Hashmap *map, char *word){
     //end luong
 }
 
+//ham in hashmap
+void printAll(concurrent_Hashmap *map){
+    for(size_t i = 0; i < table_size; i++){
+        Bucket *entry = &map->buckets[i];
+
+        //lock in
+        pthread_mutex_lock(&entry->lock);
+        
+        Node *node = entry->head;
+        snprintf(buffer, sizeof(buffer), " bucket: %zu", i);
+        fprintf(stdout, "%s\n", buffer);
+        
+        while(node){
+            if(node){
+                snprintf(buffer, sizeof(buffer), "key: %s, value: %d -> ", node->key, node->data);
+                fprintf(stdout, "%s", buffer);
+            }
+            node = node->next;
+        }
+        snprintf(buffer, sizeof(buffer), "Node lol");
+        fprintf(stdout, "%s\n", buffer);
+        pthread_mutex_unlock(&entry->lock);
+    }
+}
 //ham destroyWholeThing
 void destroyWholeThing(concurrent_Hashmap *map){
     for(size_t i = 0; i < table_size; i++){
@@ -154,6 +178,9 @@ int main(){
     insert(&hash_map, "Chanh", 9);
     insert(&hash_map, "Vy", 18);
 
+    //in ra
+    printAll(&hash_map);
+
     //in so
     lookup(&hash_map, "Chanh");
     lookup(&hash_map, "Tram");
@@ -161,10 +188,11 @@ int main(){
     //xoa node
     delete(&hash_map, "Chanh");
 
+    //in sau khi xoa
+    printAll(&hash_map);
+
     //xoa toan bo map
     destroyWholeThing(&hash_map);
-
-    //LUU Y: neu may ban co ARM  hay co thiet bi android thi viec chay chuong trinh nay co the bao tagged pointer.  no se khong anh huong den bo nho, nhung khuyen khich chay code o cac thiet bi co kien truc x86/x64 (windows, mac, linux)
     
     return 0;
 }
