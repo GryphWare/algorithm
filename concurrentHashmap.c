@@ -163,6 +163,8 @@ int main(){
 
     //xoa toan bo map
     destroyWholeThing(&hash_map);
+
+    //LUU Y: neu may ban co ARM  hay co thiet bi android thi viec chay chuong trinh nay co the bao tagged pointer.  no se khong anh huong den bo nho, nhung khuyen khich chay code o cac thiet bi co kien truc x86/x64 (windows, mac, linux)
     
     return 0;
 }
