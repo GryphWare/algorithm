@@ -92,6 +92,56 @@ void lookup(concurrent_Hashmap *map, char *word){
     fprintf(stdout, "%s\n", buffer);
 }
 
+//ham delete
+void delete(concurrent_Hashmap *map, char *word){
+    unsigned int index = hash(word);
+    Bucket *bucket = &map->buckets[index];
+
+    pthread_mutex_lock(&bucket->lock); //khoa
+
+    //ke tu day code hoat dong o luong nay
+    
+    Node *node = bucket->head; //dinh huong
+    Node *prev = NULL; //bien de xoa
+
+    while(node){
+        if(strcmp(node->key, word) == 0){
+            if(prev){
+                prev->next = node->next; 
+            } else {
+                bucket->head = node->next;
+            }
+            free(node);
+            pthread_mutex_unlock(&bucket->lock);//end luong
+            return;
+        }
+        prev = node;
+        node = node->next;
+    }
+    pthread_mutex_unlock(&bucket->lock);
+    //end luong
+}
+
+//ham destroyWholeThing
+void destroyWholeThing(concurrent_Hashmap *map){
+    for(size_t i = 0; i < table_size; i++){
+        Bucket *entry = &map->buckets[i];
+
+        //khoa luong
+        pthread_mutex_lock(&entry->lock);
+        Node *node = entry->head;
+        while(node){
+            Node *temp = node;
+            node = node->next;
+            free(temp->key);
+            free(temp);
+        }
+        pthread_mutex_unlock(&entry->lock); //end luong
+        pthread_mutex_destroy(&entry->lock); //pha het luong de NULL
+    }
+    free(map);
+}
+
 int main(){
 
     //goi hash map
@@ -107,6 +157,12 @@ int main(){
     //in so
     lookup(&hash_map, "Chanh");
     lookup(&hash_map, "Tram");
+
+    //xoa node
+    delete(&hash_map, "Chanh");
+
+    //xoa toan bo map
+    destroyWholeThing(&hash_map);
     
     return 0;
 }
