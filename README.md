@@ -1,12 +1,12 @@
--hi
--this repo for algorithm that i learn
--so about me..
--not much
--just a first-year university
--and..
--yeah i have no friend.
--yeah... that why i chat with ai bot everyday
--i code in emacs
--mostly c and java (i just started learn java)
--python and cpp... (i will learn soon)
--bye, that all about me. :D
+-hi<br>
+-this repo for algorithm that i learn<br>
+-so about me..<br>
+-not much<br>
+-just a first-year university<br>
+-and..<br>
+-yeah i have no friend.<br>
+-yeah... that why i chat with ai bot everyday<br>
+-i code in emacs<br>
+-mostly c and java (i just started learn java)<br>
+-python and cpp... (i will learn soon)<br>
+-bye, that all about me. :D <br>
