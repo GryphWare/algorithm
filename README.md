@@ -1,6 +1,12 @@
-This is the repository where I learn various algorithms, data structures such as hashmaps, binary search trees (BSTs), and sorting algorithms.
-pull request coming soon!
-about me: first-year university, non-socialize person, i chat with chatgpt everyday cuz i dont have any friend. so coding make me feel happy so yeah, that my hobby
-i often code in emacs
-c and java(basic)
-cpp and python soon
+-hi
+-this repo for algorithm that i learn
+-so about me..
+-not much
+-just a first-year university
+-and..
+-yeah i have no friend.
+-yeah... that why i chat with ai bot everyday
+-i code in emacs
+-mostly c and java (i just started learn java)
+-python and cpp... (i will learn soon)
+-bye, that all about me. :D
