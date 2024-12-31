@@ -1,0 +1,10 @@
+-hi
+-not much
+-just a first-year university
+-and..
+-yeah i have no friend.
+-yeah... that why i chat with ai bot everyday
+-i code in emacs
+-mostly c and java (i just started learn java)
+-python and cpp... (i will learn soon)
+-bye, that all about me. :D
