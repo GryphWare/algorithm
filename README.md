@@ -1,12 +1,2 @@
--hi<br>
--this repo for algorithm that i learn<br>
--so about me..<br>
--not much<br>
--just a first-year university<br>
--and..<br>
--yeah i have no friend.<br>
--yeah... that why i chat with ai bot everyday<br>
--i code in emacs<br>
--mostly c and java (i just started learn java)<br>
--python and cpp... (i will learn soon)<br>
--bye, that all about me. :D <br>
+-DualSort by me and inspiration and ideas from ahhhh my brain. idk how to say that.<br>
+-gryphware too
