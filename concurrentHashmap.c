@@ -6,6 +6,12 @@
 #define table_size 10
 #define buffer_size 50
 
+//CANH BAO
+//chuong trinh nay co the dan den loi tagged pointer
+//tagged pointer xay ra khi chay code nay o kien truc ARM
+//ko anh huong den bo nho
+//nhung khuyen khich chay code o kien truc x86/x64
+
 char buffer[buffer_size]; //de in thay printf
 
 typedef struct Node{
