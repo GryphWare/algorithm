@@ -38,5 +38,5 @@ int main(){
 
     simulate_program();
     
-    exit(EXIT_FAILURE);
+    exit(EXIT_SUCCESS);
 }
