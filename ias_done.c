@@ -52,7 +52,7 @@ void exexute_instruction(uint64_t instruction){
         printf("stop\n");
         exit(0);
     default:
-        printf("ko hop le\n");
+        perror("address hoac het slot");
         exit(1);
     }
 }
@@ -79,5 +79,5 @@ int main(){
 
     simulate_program();
     
-    return 0;
+    exit(EXIT_SUCCESS);
 }
