@@ -2,8 +2,6 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-//tot nhat nen sai int8_t, int16_t....
-
 //ham loc input
 void clear(){
     int c;
@@ -19,96 +17,54 @@ void checkArr(int *arr){
     }
 }
 
-//ham tinh dinh thuc
+//ham tinh cac duong cheo
+int multiDianogal(int **arr, int8_t row, int8_t index, int direction){
+    int8_t product = 1;
+    for(int8_t i = 0; i < row; i++){
+        product *= arr[i][index];
+        index += direction;
+    }
+        return product;
+}
 
- /* 1 4 7 1 4
-    2 5 8 2 5
-    3 6 9 3 6
- */
-
+//ham dinh thuc
 void determinant(int **arr, int row, int column){
-
+    //tang so cot
+    column += 2;
+    
     //them hai cot sau
     for(int8_t i = 0; i < row; i++){
         arr[i] = (int*) realloc (arr[i], (column + 2) * sizeof(int));
         arr[i][column] = arr[i][0];
         arr[i][column + 1] = arr[i][1];
     }
-
-    //tang so cot
-    column += 2;
     
     //in ra
     for(int8_t i = 0; i < row; i++){
         for(int8_t j = 0; j < column; j++){
             printf("%d ", arr[i][j]);
          }
+        
         printf("\n");
     }
 
     //giai quyet tong duong cheo chinh
-    int mainDianogal = 1;
+    int mainDianogal = 0;
 
-    //cong theo duong cheo chinh
-    for(int8_t i = 0; i < row; i++){
-        mainDianogal *= arr[i][i];  
+    //tinh cac duong cheo ke chinh
+    for(int8_t i = 0; i < 3; i++){
+        mainDianogal += multiDianogal(arr, row, i, 1);
     }
-    
-    printf("hien tai co duong chinh la: %d \n", mainDianogal); //in ra lan 1
-
-    int8_t increase_index = 1; //day ra index 1
-    int8_t secondDianogal = 1; //duong cheo 2
-
-    //nhu duong cheo chinh
-    for(int8_t i = 0; i < row; i++){
-        secondDianogal *= arr[i][increase_index++];
-    }
-
-    printf("duong cheo 2: %d \n", secondDianogal);
-
-    increase_index = 2;
-    int8_t third_dianogal = 1; //tinh duong cheo 3
-
-    for(int8_t i = 0; i < row; i++){
-        third_dianogal *= arr[i][increase_index++];
-    }
-
-    printf("duong cheo 3: %d \n", third_dianogal);
 
     //tinh cac duong cheo phu
-    increase_index = 0;
-    int mainDownToUp = 1;
+    int8_t subDianogal = 0;
 
-    //tinh duong phu chinh
-    for(int8_t i = row - 1; i >= 0; i--){
-        mainDownToUp *= arr[i][increase_index++];
+    for(int8_t i = 0; i < 3; i++){
+        subDianogal += multiDianogal(arr, row, row - 1 - i, -1);
     }
 
-    printf("tich duong cheo phu 1: %d\n", mainDownToUp);
-    
-    //tinh duong cheo phu 2
-    int8_t DownToUp_2 = 1;
-    increase_index = 1;
-    
-    for(int8_t i = row - 1; i >= 0; i--){
-        DownToUp_2 *= arr[i][increase_index++];
-    }
-
-    printf("tich duong cheo phu 2: %d\n", DownToUp_2);
-    
-    //tinh duong cheo phu 3
-    int8_t DownToUp_3 = 1;
-    increase_index = 2;
-
-    for(int8_t i = row - 1; i >= 0; i--){
-        DownToUp_3 *= arr[i][increase_index++];
-    }
-
-    printf("tich duong cheo phu 3: %d\n", DownToUp_3);
-
-    printf("dinh thuc ma tran: %d\n", (mainDianogal + secondDianogal + third_dianogal) - (mainDownToUp + DownToUp_2 + DownToUp_3)); 
-
-    
+    //in ket qua ma tran
+    printf("dinh thuc ma tran: %d\n", mainDianogal - subDianogal);
 }
 
 int main(){
@@ -123,7 +79,7 @@ int main(){
     scanf("%d %d", &row, &column);
 
     //dinh thuc phai la ma tran vuong
-    if(row != column || (row == 2 && column) ){
+    if(row != column || (row == 2 && column == 2) ){
         perror("Ko phai ma tran vuong va ko ho tro 2x2lol");
         exit(EXIT_FAILURE);
     }
@@ -149,5 +105,11 @@ int main(){
     //tinh dinh thuc
     determinant(arr, row, column);
 
+    //free
+    for(int8_t i = 0; i < row; i++){
+        free(arr[i]); //don mang trong
+    }
+    free(arr); //don mang ngoai
+    
     return EXIT_SUCCESS;
 }
